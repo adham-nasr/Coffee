@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+{% load my_tags %}
+
+{% block HEADER %}Coffee Stats{% endblock %}
+
+{% block FILTERS %}
+{% endblock %}
+
+{% block DATA %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Cups Sold</th>
+                    <th>Price Per Cup</th>
+                    <th>Total Sale</th>
+                    <th>Customer Count</th>
+                    <th>Discount Applied (in USD)</th>
+                    <th>Profit / Loss</th>
+                </tr>
+            </thead>
+            <tbody id="sales-data">
+                {% for el in data %}
+                    <tr>
+                        <td>{{el.date|date:"Y-m-d"}}</td>
+                        <td>{{el.cups_sold}}</td>
+                        <td>{{el.cup_price}}$</td>
+                        <td>{{el.total_sale}}$</td>
+                        <td>{{el.customer_count}}</td>
+                        <td>{{el.discount}}</td>
+                        <td>{{el.profit}}$</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}

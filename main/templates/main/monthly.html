@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+{% load my_tags %}
+
+{% block HEADER %}Monthly Coffee Stats{% endblock %}
+
+{% block FILTERS %}
+<div class="filters">
+    <form action="/stats">
+        <label for="year">Filter by Year:</label>
+        <select id="year" name="year">
+            <option value="2024">2024</option>
+            <option value="2025" selected>2025</option>
+            <option value="2026" >2026</option>
+            <option value="2027" >2027</option>
+            <option value="2028" >2028</option>
+        </select>
+        <button class="btn" onclick="filterData()">Apply Filters</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block DATA %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Cups Sold</th>
+                    <th>Average Price Per Cup</th>
+                    <th>Total Sale</th>
+                    <th>Customer Count</th>
+                    <th>Discount Applied (in USD)</th>
+                    <th>Profit / Loss</th>
+                </tr>
+            </thead>
+            <tbody id="sales-data">
+                {% for month , monthly_stats in data.items %}
+                    <tr>
+                        <td>{{month|number_to_month}}</td>
+                        {% for key,val in monthly_stats.items %}
+                            <td>{{val|floatformat:-2}}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}
